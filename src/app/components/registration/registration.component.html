@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-icon class="mat-icon-rtl-mirror" svgIcon="thumb-up"></mat-icon>
+  <mat-card-content>
+    <form  [formGroup]="reistrationForm" (ngSubmit)="onSubmit()">
+      <h2>Registration</h2>
+
+      
+      <mat-error *ngIf="isValidUser">
+        Registered User
+      </mat-error>
+
+      <mat-error *ngIf="userIdValidationBool">
+        {{userIdValidationMessage}}
+      </mat-error>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="User ID" [(ngModel)] ='registrationModel.userId' 
+        name="userId" name="userId" formControlName="userId" (keyup)="isUserIdExists($event)"
+         required>
+        <mat-error>
+          Please provide a userId
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Company Name" [(ngModel)] ='registrationModel.orgName' 
+        name="orgName" name="orgName" formControlName="orgName"
+         required>
+        <mat-error>
+          Please provide a Company Name
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Email" [(ngModel)] ='registrationModel.emailId' 
+        name="emailId" name="emailId" formControlName="emailId"
+         required>
+        <mat-error>
+          Please provide a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Mobile No" [(ngModel)] ='registrationModel.mobileNo' 
+        name="mobileNo" name="mobileNo" formControlName="mobileNo" [pattern]="mobNumberPattern"
+        
+         required>
+
+         
+        <mat-error *ngIf="f.mobileNo.invalid"> 
+          <mat-error *ngIf="f.mobileNo.errors.required"> 
+            Please provide a valid mobile No
+          </mat-error>
+          <mat-error *ngIf="f.mobileNo.errors.pattern"> 
+            Please provide 10 mobile No
+          </mat-error>
+        </mat-error>
+        
+      </mat-form-field>
+      
+      
+
+      <mat-form-field class="full-width-input">
+        <input matInput type="password" placeholder="Password" 
+        [(ngModel)]="registrationModel.password" name="password"
+        formControlName="password"
+        required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Register</button>
+    </form>
+  </mat-card-content>
+</mat-card>
